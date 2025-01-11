@@ -6,39 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mario Kart Wii Coordinate Picker</title>
     <style>
+        body{
+            margin: 0px;
+        }
         #map-container {
             position: relative;
-            display: inline-block;
+            display: inline;
+            margin: 0%;
+            max-width: 100%;
+            height: 1000px;
         }
 
         #map {
-            max-width: 100%;
+            max-width: 500%;
+            min-width: auto;
             height: auto;
+            margin-top: 3.8%;
+        }
+
+        #navbar{
+            background-color: #D8D437;
+            position: fixed;
+            height: 8%;
+            width: 100%;
+            z-index: 1;
         }
 
         #coordinates {
-            margin-top: 10px;
-            font-size: 1.2em;
+            position: fixed;
+            display: inline;
+            font-size: 24px;
+            margin-left: 0.5%;
+            background-color: #FF0000;
+            padding: 0.5%;
+            margin-top: 0.5%;
+            font-family: Arial;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            -webkit-text-size-adjust: 0;
+        }
+
+        #funkypin{
+            visibility: hidden;
+            position: absolute;
+            margin: 0;
+            z-index: 3;
+            height: 24px;
+            width: 24px;
         }
     </style>
 </head>
 
 <body>
-    <div id="map-container">
-        <img id="map" src="mario_kart_map.jpg" alt="Mario Kart Wii Map">
+    <div id="navbar">
+        <p id="coordinates">Click on the map to see coordinates!</p>
     </div>
-    <p id="coordinates">Click on the map to see coordinates!</p>
+    <div id="map-container">
+        <img id="map" src="MKWiiGeoguessr/Screenshot 2025-01-02 023056.png" alt="Mario Kart Wii Map">
+    </div>
+    
+    <img id="funkypin" src="MKWiiGeoguessr/Funky_Kong_Map_Icon.png"></img>
 
     <script>
         const map = document.getElementById("map");
         const coordinatesDisplay = document.getElementById("coordinates");
-
+        const funkypin = document.getElementById("funkypin")
         map.addEventListener("click", (event) => {
             const rect = map.getBoundingClientRect();
             const x = Math.round(event.clientX - rect.left);
             const y = Math.round(event.clientY - rect.top);
 
             coordinatesDisplay.textContent = `Coordinates: (${x}, ${y})`;
+            coordinatesDisplay.style.fontSize = "4vh";
+            coordinatesDisplay.style.backgroundColor = "#FFFFFF22";
+            funkypin.style.visibility = "visible";
+            funkypin.style.marginLeft = `${event.clientX - map.clientWidth + scrollX - 12}px`;
+            funkypin.style.marginTop = `${event.clientY + scrollY - 12}px`;
         });
     </script>
 </body>
